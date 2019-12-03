@@ -448,10 +448,10 @@ class InterpretationTramesPmePmi():
                                "ER-P_i":   (True,  True,  False, "Energie reactive negative injectee cumulee, pour la periode tarifaire en cours", 60, self._zbxtype_int),
                                "DebP-1":   (False, False, None, "Date et heure de debut de la periode P-1", 3600, self._zbxtype_text),
                                "FinP-1":   (False, False, None, "Date et heure de fin de la periode P-1", 3600, self._zbxtype_text),
-                               "EAP-1_s":  (True,  True,  False, "Energie active soustiree cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
+                               "EaP-1_s":  (True,  True,  False, "Energie active soustiree cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
                                "ER+P-1_s": (True,  True,  False, "Energie reactive positive soustiree cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
                                "ER-P-1_s": (True,  True,  False, "Energie reactive negative soustiree cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
-                               "EAP-1_i":  (True,  True,  False, "Energie active injectee cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
+                               "EaP-1_i":  (True,  True,  False, "Energie active injectee cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
                                "ER+P-1_i": (True,  True,  False, "Energie reactive positive injectee cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
                                "ER-P-1_i": (True,  True,  False, "Energie reactive negative injectee cumulee pour la periode tarifaire en cours, arretee a la fin de la periode P-1", 3600, self._zbxtype_int),
                                "PS":       (False, True,  False, "Puissance souscrite pour la periode tarifaire en cours", 3600, self._zbxtype_int),
@@ -615,7 +615,7 @@ class InterpretationTramesPmePmi():
 
                         # Cas ou on doit traiter une delta entre la valeur precedente et la valeur actuelle
                             if self._config_champs[etiquette][2] == True \
-                               and (self._epoch_derniere_trame_valide - epoch_ancienne_trame_valide) < 10:
+                               and (self._epoch_derniere_trame_valide - epoch_ancienne_trame_valide) < 20:
                                 if nouveau_tableau_interprete_entree_en_cours in self._dict_interprete:
                                     if etiquette in self._dict_interprete[nouveau_tableau_interprete_entree_en_cours]:
                                         valeur_numerique_float_ancienne = float(self._dict_interprete[nouveau_tableau_interprete_entree_en_cours][etiquette][0])
@@ -628,7 +628,7 @@ class InterpretationTramesPmePmi():
                                                 nouveau_tableau_interprete[nouveau_tableau_interprete_entree_en_cours][etiquette + "_delta"] = (str(int(valeur_numerique_float_nouvelle - valeur_numerique_float_ancienne)), unite)
                                             else:
                                                 nouveau_tableau_interprete[nouveau_tableau_interprete_entree_en_cours][etiquette + "_delta"] = (str(valeur_numerique_float_nouvelle - valeur_numerique_float_ancienne), unite)
-                                            #print("Delta : " + nouveau_tableau_interprete[nouveau_tableau_interprete_entree_en_cours][etiquette + "_delta"][0])
+                                            #print("Delta de", etiquette, nouveau_tableau_interprete[nouveau_tableau_interprete_entree_en_cours][etiquette + "_delta"][0])
                                         #else:
                                             ## choix : si on ne peut pas faire le delta, signifie qu'il n'y a pas de donnees
                                             # on decide de laisser la valeur precedente dans le tableau.
